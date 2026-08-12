@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Watad Signal â€” Ù„ÙˆØ­Ø© Ù†Ø¬Ø§Ø­ Ø§Ù„Ù…Ø­ØªÙˆÙ‰</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#16232A; --dteal:#003333; --teal:#079598; --lteal:#E3EDEE;
+    --orange:#FF5B04; --ink:#ffffff; --muted:rgba(227,237,238,.5);
+    --line:rgba(7,149,152,.22); --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--navy);color:var(--ink);font-family:"Tajawal",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+  button,input,select{font-family:inherit}
+
+  header.top{position:sticky;top:0;z-index:20;background:rgba(22,35,42,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .top-inner{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand .wd{font-weight:900;letter-spacing:6px;font-size:18px}
+  .brand .sig{color:var(--teal);font-weight:800;letter-spacing:2px}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 4px rgba(255,91,4,.15)}
+  .brand small{color:var(--muted);font-weight:500}
+  .clients{display:flex;gap:6px;margin-inline-start:auto;flex-wrap:wrap;align-items:center}
+  .client-tab{padding:7px 14px;border:1px solid var(--line);background:var(--dteal);border-radius:999px;color:var(--lteal);font-weight:700;cursor:pointer;font-size:14px}
+  .client-tab.active{color:var(--navy);background:var(--teal);border-color:var(--teal)}
+  .add-client-btn{width:34px;height:34px;border-radius:50%;border:1px dashed var(--line);background:transparent;color:var(--teal);font-size:20px;cursor:pointer;line-height:1}
+
+  main{max-width:1200px;margin:0 auto;padding:20px 20px 80px}
+
+  .daterow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--dteal);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px}
+  .presets{display:flex;gap:4px;background:var(--navy);border:1px solid var(--line);border-radius:999px;padding:3px}
+  .period{padding:6px 12px;border-radius:999px;color:var(--muted);cursor:pointer;font-size:13px;font-weight:700;border:0;background:transparent}
+  .period.active{background:var(--orange);color:#2a1200}
+  .range{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13px}
+  .range input{background:var(--navy);border:1px solid var(--line);border-radius:8px;color:var(--ink);padding:7px 9px;font-size:13px;color-scheme:dark}
+  .range .lab{font-weight:700;color:var(--lteal)}
+
+  .banner{display:none;margin:16px 0 0;padding:10px 14px;border-radius:10px;background:rgba(255,91,4,.08);border:1px solid rgba(255,91,4,.35);color:#ffd0b3;font-size:13.5px}
+  .banner.show{display:block}
+  .eyebrow{color:var(--teal);font-size:12px;font-weight:800;letter-spacing:2px;margin:26px 0 12px}
+
+  .rail{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory}
+  .rail::-webkit-scrollbar{height:8px}.rail::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+  .signal-card{scroll-snap-align:start;min-width:210px;background:var(--dteal);border:1px solid var(--line);border-radius:var(--radius);padding:14px;position:relative;overflow:hidden;text-decoration:none;color:inherit;transition:transform .12s ease,border-color .12s ease}
+  .signal-card:hover{transform:translateY(-3px);border-color:var(--teal)}
+  .signal-card::before{content:"";position:absolute;inset-block:0;inset-inline-end:0;width:4px}
+  .signal-card.owned::before{background:var(--teal)}.signal-card.competitor::before{background:var(--orange)}
+  .rank{position:absolute;top:12px;inset-inline-start:12px;font-size:12px;color:var(--muted);font-weight:800}
+  .score-big{font-size:40px;font-weight:800;line-height:1;color:var(--orange)}
+  .score-big small{font-size:14px;color:var(--muted);font-weight:500}
+  .sc-handle{margin-top:8px;font-weight:700;font-size:14px}
+  .sc-cap{color:var(--muted);font-size:12.5px;margin-top:2px;height:34px;overflow:hidden}
+  .tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;margin-top:8px}
+  .tag.owned{color:var(--teal);background:rgba(7,149,152,.14)}
+  .tag.competitor{color:var(--orange);background:rgba(255,91,4,.14)}
+  .fmt{font-size:11px;color:var(--muted);border:1px solid var(--line);padding:1px 7px;border-radius:6px;margin-inline-start:6px}
+
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+  .cmp-col{background:var(--dteal);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+  .cmp-col h3{margin:0 0 12px;font-size:14px;display:flex;align-items:center;gap:8px}
+  .swatch{width:9px;height:9px;border-radius:3px}
+  .swatch.owned{background:var(--teal)}.swatch.competitor{background:var(--orange)}
+  .stat-row{display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid var(--line);font-size:13.5px}
+  .stat-row:first-of-type{border-top:0}
+  .stat-row .k{color:var(--muted)}.stat-row .v{font-weight:700}
+
+  .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 12px;flex-wrap:wrap}
+  .section-head h2{font-size:18px;margin:0;font-weight:800}
+  .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .filters{display:flex;gap:6px}
+  .chip{font-size:12.5px;font-weight:700;color:var(--muted);background:var(--dteal);border:1px solid var(--line);padding:5px 11px;border-radius:999px;cursor:pointer}
+  .chip.active{color:var(--ink);border-color:var(--teal)}
+  select.sort{background:var(--dteal);border:1px solid var(--line);border-radius:999px;color:var(--lteal);padding:6px 12px;font-size:12.5px;font-weight:700;cursor:pointer}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+  .post{background:var(--dteal);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:transform .12s ease,border-color .12s ease}
+  .post:hover{transform:translateY(-3px);border-color:var(--teal)}
+  .thumb{aspect-ratio:4/5;background:linear-gradient(135deg,#0a1a1a,#0e1c22);display:grid;place-items:center;color:var(--line);position:relative;overflow:hidden}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .thumb .side-strip{position:absolute;inset-block:0;inset-inline-start:0;width:4px;z-index:2}
+  .cover{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px;text-align:center}
+  .cover .glyph{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;font-size:20px;background:rgba(7,149,152,.14);border:1px solid var(--line);color:var(--teal)}
+  .cover.competitor .glyph{background:rgba(255,91,4,.12);color:var(--orange)}
+  .cover .cap{font-size:12.5px;color:var(--muted);line-height:1.6;max-width:92%}
+  .cover .ftype{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+  .open-hint{position:absolute;top:10px;inset-inline-start:10px;font-size:11px;font-weight:700;color:var(--lteal);background:rgba(22,35,42,.7);border:1px solid var(--line);border-radius:999px;padding:3px 9px;opacity:0;transition:opacity .12s;z-index:3}
+  .post:hover .open-hint{opacity:1}
+  .side-strip.owned{background:var(--teal)}.side-strip.competitor{background:var(--orange)}
+  .post-body{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .post-top{display:flex;align-items:center;justify-content:space-between}
+  .p-handle{font-weight:700;font-size:13.5px}
+  .p-score{font-weight:800;color:var(--orange)}
+  .p-date{font-size:11px;color:var(--muted)}
+  .metrics{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;font-size:12px;color:var(--muted)}
+  .metrics b{color:var(--ink);font-weight:700}
+  .na{opacity:.4}
+
+  .empty{background:var(--dteal);border:1px dashed var(--line);border-radius:var(--radius);padding:26px;text-align:center;color:var(--muted);font-size:14px}
+
+  .manage{background:var(--dteal);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-top:12px}
+  .manage h4{margin:0 0 10px;font-size:13.5px;color:var(--lteal);font-weight:800}
+  .add-row{display:flex;gap:8px;flex-wrap:wrap}
+  .add-row input{flex:1;min-width:160px;background:var(--navy);border:1px solid var(--line);border-radius:10px;color:var(--ink);padding:10px 12px;font-size:13.5px}
+  .add-row button{background:var(--teal);color:#04211f;border:0;border-radius:10px;padding:0 16px;font-weight:800;cursor:pointer;min-height:40px}
+  .accounts-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .acc-pill{font-size:12.5px;padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:var(--navy)}
+  .acc-pill.owned{color:var(--teal)}.acc-pill.competitor{color:var(--orange)}
+  .hint{color:var(--muted);font-size:12px;margin-top:8px}
+
+  footer.foot{max-width:1200px;margin:0 auto;padding:0 20px 40px;color:var(--muted);font-size:12px}
+  @media(max-width:640px){.cmp{grid-template-columns:1fr}}
+
+  dialog{background:var(--dteal);color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);padding:20px;max-width:340px;width:90%}
+  dialog::backdrop{background:rgba(0,0,0,.55)}
+  dialog h4{margin:0 0 12px}
+  dialog .add-row{flex-direction:column}
+  dialog input{width:100%}
+  dialog .dlg-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+  dialog .ghost{background:transparent;border:1px solid var(--line);color:var(--lteal)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <div class="brand"><span class="dot"></span><span class="wd">WATAD</span><span class="sig">SIGNAL</span><small>Ù„ÙˆØ­Ø© Ù†Ø¬Ø§Ø­ Ø§Ù„Ù…Ø­ØªÙˆÙ‰</small></div>
+    <div class="clients" id="clients"></div>
+  </div>
+</header>
+
+<main>
+  <div class="daterow">
+    <div class="presets" id="presets">
+      <button class="period" data-days="1">Ø§Ù„ÙŠÙˆÙ…</button>
+      <button class="period" data-days="7">7 Ø£ÙŠØ§Ù…</button>
+      <button class="period active" data-days="30">30 ÙŠÙˆÙ…</button>
+      <button class="period" data-days="90">90 ÙŠÙˆÙ…</button>
+    </div>
+    <div class="range">
+      <span class="lab">Ø£Ùˆ Ù…Ø¯Ù‰ Ù…Ø®ØµØµ:</span>
+      <span>Ù…Ù†</span><input type="date" id="from" />
+      <span>Ø¥Ù„Ù‰</span><input type="date" id="to" />
+    </div>
+  </div>
+
+  <div class="banner" id="banner">Ù‡Ø°ÙŠ <b>Ø¨ÙŠØ§Ù†Ø§Øª ØªØ¬Ø±ÙŠØ¨ÙŠØ©</b> Ù„Ø¹Ø±Ø¶ Ø§Ù„Ø´ÙƒÙ„ â€” Ø¨Ø³ ÙŠØ®Ù„Øµ Ø±Ø¨Ø· <b>arev.iraq</b> Ø£ÙˆÙ„Ù‘Ø¯ Ù†ÙØ³ Ø§Ù„Ù…Ù„Ù Ø¨Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø­Ù‚ÙŠÙ‚ÙŠØ©. Ø§Ù„ÙƒÙ„Ø§ÙŠÙ†ØªØ³ ÙˆØ§Ù„Ù…Ù†Ø§ÙØ³ÙŠÙ† Ø§Ù„Ù„ÙŠ ØªØ¶ÙŠÙÙ‡Ù… ÙŠÙØ­ÙØ¸ÙˆÙ† Ø¨Ù…ØªØµÙØ­ÙƒØŒ ÙˆØ¨ÙŠØ§Ù†Ø§ØªÙ‡Ù… ØªØ¬ÙŠ Ø¨Ø£ÙˆÙ„ ØªØ­Ø¯ÙŠØ«.</div>
+
+  <p class="eyebrow">Ø§Ù„Ø¥Ø´Ø§Ø±Ø© â€” Ø£Ù†Ø¬Ø­ Ø§Ù„Ø¨ÙˆØ³ØªØ§Øª Ù‡Ø§Ù„ÙØªØ±Ø©</p>
+  <div class="rail" id="rail"></div>
+
+  <div class="section-head"><h2>Ø§Ù„Ù…Ù‚Ø§Ø±Ù†Ø© â€” Ù…Ø­ØªÙˆØ§Ù†Ø§ Ù…Ù‚Ø§Ø¨Ù„ Ø§Ù„Ù…Ù†Ø§ÙØ³ÙŠÙ†</h2></div>
+  <div class="cmp" id="cmp"></div>
+
+  <div class="section-head">
+    <h2>ÙƒÙ„ Ø§Ù„Ø¨ÙˆØ³ØªØ§Øª <span class="mono" id="count" style="color:var(--muted);font-size:14px"></span></h2>
+    <div class="controls">
+      <div class="filters" id="filters">
+        <button class="chip active" data-side="all">Ø§Ù„ÙƒÙ„</button>
+        <button class="chip" data-side="owned">Ù…Ø­ØªÙˆØ§Ù†Ø§</button>
+        <button class="chip" data-side="competitor">Ø§Ù„Ù…Ù†Ø§ÙØ³ÙŠÙ†</button>
+      </div>
+      <select class="sort" id="sort">
+        <option value="score-desc">Ø§Ù„Ø£Ø¹Ù„Ù‰ Ø³ÙƒÙˆØ±</option>
+        <option value="score-asc">Ø§Ù„Ø£Ø¶Ø¹Ù Ø³ÙƒÙˆØ±</option>
+        <option value="date-desc">Ø§Ù„Ø£Ø­Ø¯Ø«</option>
+        <option value="date-asc">Ø§Ù„Ø£Ù‚Ø¯Ù…</option>
+      </select>
+    </div>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div id="gridEmpty"></div>
+
+  <div class="section-head"><h2>Ø­Ø³Ø§Ø¨Ø§Øª ÙˆÙ…Ù†Ø§ÙØ³ÙŠÙ† Ù‡Ø°Ø§ Ø§Ù„ÙƒÙ„Ø§ÙŠÙ†Øª</h2></div>
+  <div class="accounts-list" id="accounts"></div>
+  <div class="manage">
+    <h4>Ø£Ø¶Ù Ù…Ù†Ø§ÙØ³ Ù„Ù‡Ø°Ø§ Ø§Ù„ÙƒÙ„Ø§ÙŠÙ†Øª</h4>
+    <div class="add-row">
+      <input id="compInput" placeholder="Ø£Ù„ØµÙ‚ Ø±Ø§Ø¨Ø· Ø¥Ù†Ø³ØªØºØ±Ø§Ù… Ø£Ùˆ @Ø§Ù„ÙŠÙˆØ²Ø±â€¦" />
+      <button id="compAdd">Ø£Ø¶Ù Ù…Ù†Ø§ÙØ³</button>
+    </div>
+    <p class="hint">ÙŠÙØ¶Ø§Ù Ù„Ù„ÙƒÙ„Ø§ÙŠÙ†Øª Ø§Ù„Ø­Ø§Ù„ÙŠ ÙˆÙŠÙØ­ÙØ¸ Ù…Ø­Ù„ÙŠØ§Ù‹. Ø³Ø­Ø¨ Ø¨ÙˆØ³ØªØ§ØªÙ‡ ÙŠØµÙŠØ± Ø¨Ø£ÙˆÙ„ ØªØ­Ø¯ÙŠØ« Ø¨ÙŠØ§Ù†Ø§Øª.</p>
+  </div>
+</main>
+
+<footer class="foot" id="foot"></footer>
+
+<dialog id="clientDlg">
+  <h4>Ø£Ø¶Ù ÙƒÙ„Ø§ÙŠÙ†Øª Ø¬Ø¯ÙŠØ¯</h4>
+  <div class="add-row">
+    <input id="cName" placeholder="Ø§Ø³Ù… Ø§Ù„ÙƒÙ„Ø§ÙŠÙ†Øª (Ù…Ø«Ø§Ù„: Hamasa)" />
+    <input id="cHandle" placeholder="ÙŠÙˆØ²Ø± Ø¥Ù†Ø³ØªØºØ±Ø§Ù… Ø§Ù„Ø±Ø³Ù…ÙŠ (Ù…Ø«Ø§Ù„: hamasa.brew)" />
+  </div>
+  <div class="dlg-actions">
+    <button class="ghost" id="cCancel">Ø¥Ù„ØºØ§Ø¡</button>
+    <button id="cSave">Ø­ÙØ¸ Ø§Ù„ÙƒÙ„Ø§ÙŠÙ†Øª</button>
+  </div>
+</dialog>
+
+<script>
+let BAKED={clients:[],accounts:{},posts:[]};
+function parseHandle(s){return String(s||"").trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i,"").replace(/[/?#].*$/,"").replace(/^@/,"")}
+async function loadStore(){try{BAKED=await fetch("/api/store").then(r=>r.json());}catch(e){}}
+function buildStore(){return {clients:BAKED.clients||[],accounts:BAKED.accounts||{},posts:BAKED.posts||[]};}
+async function apiPost(p,b){return fetch(p,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}).then(r=>r.json()).catch(()=>({error:"network"}));}
+
+const OWNED_W={saved:.30,shares:.25,reach:.20,engagementRate:.15,comments:.10};
+const COMP_W={views:.40,comments:.30,likes:.30};
+function normField(posts,f){
+  const vals=posts.map(p=>p.metrics&&p.metrics[f]).filter(v=>typeof v==="number"&&!isNaN(v));
+  const min=vals.length?Math.min(...vals):0,max=vals.length?Math.max(...vals):0,span=max-min;
+  const m=new Map();
+  posts.forEach(p=>{const v=p.metrics&&p.metrics[f];
+    if(typeof v!=="number"||isNaN(v))m.set(p.id,0);
+    else if(span===0)m.set(p.id,max===0?0:1);
+    else m.set(p.id,(v-min)/span);});
+  return m;
+}
+function scoreSide(posts,W){if(!posts.length)return;const n={};Object.keys(W).forEach(f=>n[f]=normField(posts,f));
+  posts.forEach(p=>{let s=0;for(const f in W)s+=(n[f].get(p.id)||0)*W[f];p.score=Math.round(s*1000)/10;});}
+const MEDIA_W={likes:.6,comments:.4};
+function scorePosts(posts){
+  scoreSide(posts.filter(p=>p.side==="owned"&&p.metrics&&p.metrics.saved!=null),OWNED_W);
+  scoreSide(posts.filter(p=>p.side==="owned"&&!(p.metrics&&p.metrics.saved!=null)),MEDIA_W);
+  scoreSide(posts.filter(p=>p.side==="competitor"),COMP_W);
+  return posts;
+}
+
+const state={client:"arev",days:30,from:null,to:null,side:"all",sort:"score-i\ØÈ‹İÜ™N›[šY]Î›[NÂ˜ÛÛœİ	\ÏO™Øİ[Y[œ]Y\TÙ[XİÜŠÊNÂ˜ÛÛœİ™[™]È[“[X™\‘›Ü›X]
+™[‹UTÈŠNÂ˜ÛÛœİ“U^Ô‘QSˆ”™Y[‹ĞT“ÕTÑSˆØ\›İ\Ù[‹SPQÑNˆ¶-vb6,v*H‹ÕÔ–Nˆ”İÜHŸNÂ˜ÛÛœİÓT^Ô‘QSˆ¸¥­ˆ‹ĞT“ÕTÑSˆ¸§cÈ‹SPQÑNˆ¸¥â‹ÕÔ–Nˆ¸¥åŸNÂ˜ÛÛœİÜİ[šÏ\Oœœ\›X[[šÉ‰œœ\›X[[šÈOOHˆÈÜœ\›X[[šÎŠšÎ‹ËÚ[œİYÜ˜[K˜ÛÛKÈŠÜš[™JNÂ˜ÛÛœİ›]]O]O›™]È]J
+KÓØØ[Q]Tİš[™Ê˜\ˆ‹Ù^NˆŒ‹YYÚ]‹[ÛˆŒ‹YYÚ]ŸJNÂ‚™[˜İ[ÛˆÚ[™İĞ›İ[™Ê
+^ÂˆYŠİ]K™œ›ÛI‰œİ]KÊ^ÂˆÛÛœİO[™]È]Jİ]K™œ›ÛJNØKœÙ]İ\œÊ
+NÂˆÛÛœİ[™]È]Jİ]KÊNØ‹œÙ]İ\œÊŒËNKNKNNJNÂˆ™]\›ˆØK™Ù][YJ
+K‹™Ù][YJ
+WNÂˆBˆ™]\›ˆÑ]K››İÊ
+K\İ]K™^\Ê]K››İÊ
+WNÂŸB™[˜İ[ÛˆÛÛ\]J
+^ÂˆÛÛœİÏ\İ]KœİÜ™NÂˆÛÛœİÛY[TË˜ÛY[Ë™š[™
+ÏO˜ËšYOO\İ]K˜ÛY[
+_Ë˜ÛY[ÖÌNÂˆİ]K˜ÛY[XÛY[šYÂˆÛÛœİÛËWO]Ú[™İĞ›İ[™Ê
+NÂˆ]ÜİÏTËœÜİË™š[\ŠOœ˜ÛY[OOXÛY[šY
+K™š[\ŠOØÛÛœİ[™]È]J[Y\İ[\
+K™Ù][YJ
+NÜ™]\›ˆ[É‰ZNßJBˆ›X\
+OŠË‹‹œY]šXÜÎË‹‹œ›Y]šXÜß_JJNÂˆØÛÜ™TÜİÊÜİÊNÂˆÜİË™›Ü‘XXÚ
+Oœ˜XØÛİ[˜[YOJË˜XØÛİ[ÖÜš[™W_ßJK›˜[Y_š[™JNÂˆÛÛœİYÙÏ\ÚYOOØÛÛœİ\ÜİË™š[\ŠOœœÚYOOO\ÚYJK\‹›[™İÂˆÛÛœİ]™ÏYO›Ü‹œ™YXÙJ
+Ë
+OOœÊÊ
+›Y]šXÜÉ‰›Y]šXÜÖÙ—J_
+K
+KÛŒÂˆÛÛœİ›O^ßNÜ‹™›Ü‘XXÚ
+O™›VŞ™›Ü›X]OJ›VŞ™›Ü›X]_
+JÌJNØÛÛœİÜSØš™Xİ™[šY\Ê›JKœÛÜ
+
+KŠOO˜–ÌWKXVÌWJVÌNÂˆÛÛœİÜ[‘^\ÏSX]›X^
+KX]œ›İ[™
+
+K[ÊKÎ
+JNÂˆ™]\›ÜÜİÎ›‹]™ÔØÛÜ™N›ÓX]œ›İ[™
+‹œ™YXÙJ
+Ë
+OOœÊÊœØÛÜ™_
+K
+KÛŠŒL
+KÌLŒˆ]™ÕšY]ÜÎ“X]œ›İ[™
+]™ÊšY]ÜÈŠJK]™ĞÛÛ[Y[Î“X]œ›İ[™
+]™Ê˜ÛÛ[Y[ÈŠJKˆÜ›Ü›X]ÜİÜÌNˆ¸ %‹ØY[˜ÙN“X]œ›İ[™
+‹ÜÜ[‘^\ÊÊŒL
+KÌLNßNÂˆÛÛœİXØÛİ[Ï^ßNÖØÛY[›İÛ™Y[™K‹‹˜ÛY[˜ÛÛ\]]Üœ×K™›Ü‘XXÚ
+OØXØÛİ[ÖÚOTË˜XØÛİ[ÖÚ_Ú[™NšÚYNšOOXÛY[›İÛ™Y[™OÈ›İÛ™Yˆ˜ÛÛ\]]Üˆ‹˜[YNš›ÛİÙ\œÎ›[_JNÂˆÛÛœİÚYÛ˜[VË‹‹÷7G5Òç6÷'B‚†Æ"“Óâ†"ç66÷&WÇÃ’Ò†ç66÷&WÇÃ’’ç6Æ–6RƒÃ‚“°¢7FFRçf–Ws×¶6Æ–VçBÇ÷7G2Æ66÷VçG2Ç6–væÂÆ6ö×&—6öã§¶÷væVC¦vr‚&÷væVB"’Æ6ö×WF—F÷#¦vr‚&6ö×WF—F÷""—×Ó°§Ğ¦gVæ7F–öâ6÷'FVE÷7G2‚—°¢ÆWB#Õ²ââç7FFRçf–Wrç÷7G5Ó°¢–b‡7FFRç6–FRÓÒ&ÆÂ"—#×"æf–ÇFW"‡Óçç6–FSÓÓ×7FFRç6–FR“°¢6öç7B'“×7FFRç6÷'C°¢"ç6÷'B‚†Æ"“Óç°¢–b†'“ÓÓÒ'66÷&RÖFW62"—&WGW&â†"ç66÷&WÇÃ’Ò†ç66÷&WÇÃ“°¢–b†'“ÓÓÒ'66÷&RÖ62"’&WGW&â†ç66÷&WÇÃ’Ò†"ç66÷&WÇÃ“°¢–b†'“ÓÓÒ&FFRÖFW62"’&WGW&âæWrFFR†"çF–ÖW7F×’ÖæWrFFR†çF–ÖW7F×“°¢&WGW&âæWrFFR†çF–ÖW7F×’ÖæWrFFR†"çF–ÖW7F×“°¢Ò“°¢&WGW&â#°§Ğ ¦gVæ7F–öâFr‡6–FR—·&WGW&â6–FSÓÓÒ&÷væVB#òsÇ7â6Æ73Ò'Fr÷væVB#î)xò˜]ŠİŠ­˜Š}˜mŠsÂ÷7ãâs¢sÇ7â6Æ73Ò'Fr6ö×WF—F÷"#î)xò˜]˜mŠ}˜‹3Â÷7ãâs·Ğ¦gVæ7F–öâ&VæFW$6Æ–VçG2‚—°¢6öç7B&÷ƒÒB‚"66Æ–VçG2"“¶&÷‚æ–ææW$…DÔÃÒ"#°¢7FFRç7F÷&Ræ6Æ–VçG2æf÷$V6‚†3Óç¶6öç7B#ÖFö7VÖVçBæ7&VFTVÆVÖVçB‚&'WGFöâ"“°¢"æ6Æ74æÖSÒ&6Æ–VçB×F""²†2æ–CÓÓ×7FFRæ6Æ–VçCò"7F—fR#¢""“¶"çFW‡D6öçFVçCÖ2ææÖS°¢"æöæ6Æ–6³Ò‚“Óç·7FFRæ6Æ–VçCÖ2æ–C·&VæFW"‚“·Ó¶&÷‚æVæD6†–ÆB†"“·Ò“°¢6öç7BFCÖFö7VÖVçBæ7&VFTVÆVÖVçB‚&'WGFöâ"“¶FBæ6Æ74æÖSÒ&FBÖ6Æ–VçBÖ'Fâ#¶FBçF—FÆSÒ-Š=‹m˜˜=˜MŠ}˜­˜mŠ¢#¶FBçFW‡D6öçFVçCÒ"²#°¢FBæöæ6Æ–6³Ò‚“ÓâB‚"66Æ–VçDFÆr"’ç6†÷tÖöFÂ‚“¶&÷‚æVæD6†–ÆB†FB“°§Ğ¦gVæ7F–öâ&VæFW%6–væÂ†Æ—7B—¶6öç7B#ÒB‚"7&–Â"“·"æ–ææW$…DÔÃÒ"#°¢–b‚Æ—7BæÆVæwF‚—·"æ–ææW$…DÔÃÒsÆF—b6Æ73Ò&V×G’"7G–ÆSÒ&Ö–â×v–GFƒ£”ˆûfbœƒbŸff ƒb£f#bÏb«bŸb¨ƒb£fbŸffb¿f$¸ƒbëf+fGbÄƒbŸfb«bŸbÇf+b¸ƒbf ƒbbÛfƒb£f+bŸfbŸb¨¸ğ½‘¥ØøœíÉ•ÑÕÉ¸íô(€±¥ÍĞ¹™½É…  ¡À±¤¤ôùí½¹ÍĞ•°õ‘½Õµ•¹Ğ¹É•…Ñ•±•µ•¹Ğ ‰„ˆ¤í•°¹±…ÍÍ9…µ”ô‰Í¥¹…°µ…É€ˆ­À¹Í¥‘”ì(€€€•°¹¡É•˜õÁ½ÍÑ1¥¹¬¡À¤í•°¹Ñ…É•Ğô‰}‰±…¹¬ˆí•°¹É•°ô‰¹½½Á•¹•Èˆì(€€€•°¹¥¹¹•É!Q50õ€ñÍÁ…¸±…ÍÌô‰É…¹¬µ½¹¼ˆøŒ‘í¤¬Åôğ½ÍÁ…¸ø(€€€€€€ñ‘¥ØÍÑå±”ô‰Ñ•áĞµ…±¥¸é•¹Ñ•Èíµ…É¥¸µÑ½ÀèÄÑÁàˆøñ‘¥Ø±…ÍÌô‰Í½É”µ‰¥œµ½¹¼ˆø‘íÀ¹Í½É”üüÁôñÍµ…±°ø¼ÄÀÀğ½Íµ…±°øğ½‘¥Øøğ½‘¥Øø(€€€€€€ñ‘¥Ø±…ÍÌô‰ÍŒµ¡…¹‘±”ˆø‘íÀ¹…½Õ¹Ñ9…µ•ô€ñÍÁ…¸±…ÍÌô‰™µĞˆø‘í5QmÀ¹™½Éµ…ÑuññÀ¹™½Éµ…Ñôğ½ÍÁ…¸øğ½‘¥Øø(€€€€€€ñ‘¥Ø±…ÍÌô‰ÍŒµ…Àˆø‘íÀ¹…ÁÑ¥½¹ñğˆ‰ôğ½‘¥Øø‘íÑ…œ¡À¹Í¥‘”¥õ€íÈ¹…ÁÁ•¹‘¡¥±¡•°¤íô¤ì)ô)½¹ÍĞÉ½Üô¡¬±Ø¤ôù€ñ‘¥Ø±…ÍÌô‰ÍÑ…ĞµÉ½ÜˆøñÍÁ…¸±…ÍÌô‰¬ˆø‘í­ôğ½ÍÁ…¸øñÍÁ…¸±…ÍÌô‰Øµ½¹¼ˆø‘íÙôğ½ÍÁ…¸øğ½‘¥Øù€ì)™Õ¹Ñ¥½¸É•¹‘•ÉµÀ¡Œ¥ì ˆµÀˆ¤¹¥¹¹•É!Q50õ€(€€ñ‘¥Ø±…ÍÌô‰µÀµ½°ˆøñ ÌøñÍÁ…¸±…ÍÌô‰Íİ…Ñ ½İ¹•ˆøğ½ÍÁ…¸øƒfb·b«f#bŸfbœğ½ Ìø(€€€€‘íÉ½Ü ‹fb«f#bÏbÜƒbŸfbÏff#bÄˆ±Œ¹½İ¹•¹…ÙM½É”¥ô‘íÉ½Ü ‹bçb¿b¼ƒbŸfb£f#bÏb«bŸb¨ˆ±Œ¹½İ¹•¹Á½ÍÑÌ¥ô(€€€€‘íÉ½Ü ‹bfbÛf½Éµ…Ğˆ±5QmŒ¹½İ¹•¹Ñ½Á½Éµ…ÑuññŒ¹½İ¹•¹Ñ½Âormat)}${row("Ø§Ù„Ù†Ø´Ø±/Ø£Ø³Ø¨ÙˆØ¹",c.owned.cadence)}
+    ${row("Ù…ØªÙˆØ³Ø· Ø§Ù„ØªØ¹Ù„ÙŠÙ‚Ø§Øª",nf.format(c.owned.avgComments))}</div>
+  <div class="cmp-col"><h3><span class="swatch competitor"></span> Ø§Ù„Ù…Ù†Ø§ÙØ³ÙŠÙ† (public)</h3>
+    ${row("Ù…ØªÙˆØ³Ø· Ø§Ù„Ø³ÙƒÙˆØ±",c.competitor.avgScore)}${row("Ø¹Ø¯Ø¯ Ø§Ù„Ø¨ÙˆØ³ØªØ§Øª",c.competitor.posts)}
+    ${row("Ø£ÙØ¶Ù„ Format",FMT[c.competitor.topFormat]||c.competitor.topFormat)}${row("Ø§Ù„Ù†Ø´Ø±/Ø£Ø³Ø¨ÙˆØ¹",c.competitor.cadence)}
+    ${row("Ù…ØªÙˆØ³Ø· Ø§Ù„Ù…Ø´Ø§Ù‡Ø¯Ø§Øª",nf.format(c.competitor.avgViews))}</div>`;
+}
+const met=(l,v,na)=>(na||v==null)?`<div>${l} <b class="na">â€”</b></div>`:`<div>${l} <b>${nf.format(v||0)}</b></div>`;
+function renderGrid(){
+  const rows=sortedPosts();
+  $("#count").textContent=`(${rows.length})`;
+  const g=$("#grid"),e=$("#gridEmpty");g.innerHTML="";
+  if(!rows.length){e.innerHTML='<div class="empty">Ù…Ø§ Ø§ÙƒÙˆ Ø¨ÙˆØ³ØªØ§Øª Ø¨Ù‡Ø§Ù„Ù…Ø¯Ù‰/Ø§Ù„ÙÙ„ØªØ±. Ø¬Ø±Ù‘Ø¨ Ù…Ø¯Ù‰ ØªØ§Ø±ÙŠØ® Ø£ÙˆØ³Ø¹.</div>';return;}
+  e.innerHTML="";
+  rows.forEach(p=>{const owned=p.side==="owned",m=p.metrics||{};
+    const el=document.createElement("a");el.className="post";el.href=postLink(p);el.target="_blank";el.rel="noopener";
+    const cover=p.thumb
+      ? `<img src="${p.thumb}" alt="" loading="lazy" />`
+      : `<div class="cover ${p.side}"><div class="glyph">${GLYPH[p.format_¸§cÈŸOÙ]]ˆÛ\ÜÏH™\H‰Ñ“UÜ™›Ü›X]_™›Ü›X]OÙ]]ˆÛ\ÜÏH˜Ø\‰Ü˜Ø\[ÛŸˆŸOÙ]Ù]˜Âˆ[š[›™\’SX]ˆÛ\ÜÏH[XˆÜ[ˆÛ\ÜÏHœÚYK\İš\	ÜœÚY_HÜÜ[‰ØÛİ™\ŸOÜ[ˆÛ\ÜÏH›Ü[‹Z[¶)ö`v*¶+H6.va6bH6)va¶,ö*¶.¶,v)öaH8¡¥ÏÜÜ[Ù]‚ˆ]ˆÛ\ÜÏHœÜİX›ÙH]ˆÛ\ÜÏHœÜİ]ÜÜ[ˆÛ\ÜÏHœZ[™H‰Ü˜XØÛİ[˜[Y_OÜÜ[Ü[ˆÛ\ÜÏHœ\ØÛÜ™H[Û›È‰ÜœØÛÜ™OÏÌOÜÜ[Ù]‚ˆ]ˆÛ\ÜÏHœY]H‰Ù›]]J[Y\İ[\
+_H0­È	Ü˜Ø\[ÛÜ˜Ø\[Û‹œÛXÙJ
+NˆˆŸOÙ]‚ˆ]ˆÛ\ÜÏH›Y]šXÜÈ‰ÛY]
+¶av-6)öaö+ö)ö*ˆ‹KšY]ÜË[KšY]ÜÊ_IÛY]
+¶a6)öb¶`ö)ö*ˆ‹K›ZÙ\Ê_IÛY]
+¶*¶.va6b¶`¶)ö*ˆ‹K˜ÛÛ[Y[Ê_Bˆ	ÛİÛ™YÛY]
+”™XXÚ‹Kœ™XXÚ
+N‰Ï]”™XXÚˆÛ\ÜÏH›˜H¸ %ØÙ]‰ßBˆ	ÛİÛ™YÛY]
+”Ø]™\È‹KœØ]™Y
+N‰Ï]”Ø]™\ÈˆÛ\ÜÏH›˜H¸ %ØÙ]‰ßBˆ	ÛİÛ™YÛY]
+”Ú\™\È‹KœÚ\™\ÊN‰Ï]‰›˜œÜÏÙ]‰ßOÙ]Ù]˜ÂˆË˜\[™Ú[
+[
+NßJNÂŸB™[˜İ[Ûˆ™[™\XØÛİ[ÊJ^ØÛÛœİI
+ˆØXØÛİ[ÈŠNØ‹š[›™\’SHˆÂˆØš™Xİ˜[Y\ÊJK™›Ü‘XXÚ
+OØÛÛœİYØİ[Y[˜Ü™X]Q[[Y[
+œÜ[ˆŠNÜ˜Û\ÜÓ˜[YOH˜XØË\[ŠŞœÚYNÂˆ^ÛÛ[HŠŞš[™JÊœÚYOOOH›İÛ™YÈˆ0­È6+v,ö)ö*6a¶)ÈˆˆŠNØ‹˜\[™Ú[
+
+NßJNßB™[˜İ[Ûˆ™[™\Š
+^Âˆİ]KœİÜ™OXZ[İÜ™J
+NÂˆÛÛ\]J
+NØÛÛœİ\İ]KšY]ÎÂˆ	
+ˆØ˜[›™\ˆŠK˜Û\ÜÓ\İÙÙÛJœÚİÈ‹H]‹˜ÛY[™[[ÊNÂˆ™[™\ÛY[Ê
+NÜ™[™\”ÚYÛ˜[
+‹œÚYÛ˜[
+NÜ™[™\Û\
+‹˜ÛÛ\\š\ÛÛŠNÜ™[™\‘ÜšY
+
+NÜ™[™\XØÛİ[Ê‹˜XØÛİ[ÊNÂˆÛÛœİÛËWO]Ú[™İĞ›İ[™Ê
+NÂˆÛÛœİ˜[™ÙUJİ]K™œ›ÛI‰œİ]KÊOØ	Ù›]]JÊ_H8¡¤ˆ	Ù›]]JJ_X˜6(¶+¶,H	Üİ]K™^\ßH6b¶b6aXÂˆÛÛœİ]S›İO]‹˜ÛY[™[[ÏÈ¶*6b¶)öa¶)ö*ˆ6*¶+6,vb¶*6b¶*H6a6+v+È6,v*6-È6)öa6+v,ö)ö*ˆ¶*6b¶)öa¶)ö*ˆ6+v`¶b¶`¶b¶*H6avaˆ6)va¶,ö*¶.¶,v)öaH8 %6,vb6)ö*6-È6av*6)ö-6,v*H6a6a6*6b6,ö*¶)ö*ˆÂˆ	
+ˆÙ›ÛİŠKš[›™\’SX6)öa6av+öbNˆ	Ü˜[™ÙUH0­È	Ù]S›İ_H0­È6)öa6ava¶)ö`v,öb¶aˆH6*6b¶)öa¶)ö*ˆ6.v)öav*H6*6,È
+6*6+öb6aˆ™XXÚÔØ]™\ÊK˜ÂŸB‚‰
+ˆÜ™\Ù]ÈŠK˜Y]™[\İ[™\Š˜ÛXÚÈ‹OOØÛÛœİYK\™Ù]˜ÛÜÙ\İ
+‹œ\š[ÙŠNÚYŠXŠ\™]\›ÂˆØİ[Y[œ]Y\TÙ[XİÜ[
+‹œ\š[ÙŠK™›Ü‘XXÚ
+O˜Û\ÜÓ\İœ™[[İ™J˜Xİ]™HŠJNØ‹˜Û\ÜÓ\İ˜Y
+˜Xİ]™HŠNÂˆİ]K™^\Ï\\œÙR[
+‹™]\Ù]™^\ËL
+NÜİ]K™œ›ÛO[[Üİ]KÏ[[É
+ˆÙœ›ÛHŠK˜[YOHˆÉ
+ˆİÈŠK˜[YOHˆÜ™[™\Š
+NßJNÂ™[˜İ[Ûˆİ\İÛPÚ[™ÙY
+
+^ÚYŠ	
+ˆÙœ›ÛHŠK˜[YI‰‰
+ˆİÈŠK˜[YJ^Üİ]K™œ›ÛOI
+ˆÙœ›ÛHŠK˜[YNÜİ]KÏI
+ˆİÈŠK˜[YNÂˆØİ[Y[œ]Y\TÙ[XİÜ[
+‹œ\š[ÙŠK™›Ü‘XXÚ
+O˜Û\ÜÓ\İœ™[[İ™J˜Xİ]™HŠJNÜ™[™\Š
+Nß_B‰
+ˆÙœ›ÛHŠK˜Y]™[\İ[™\Š˜Ú[™ÙH‹İ\İÛPÚ[™ÙY
+NÂ‰
+ˆİÈŠK˜Y]™[\İ[™\Š˜Ú[™ÙH‹İ\İÛPÚ[™ÙY
+NÂ‰
+ˆÙš[\œÈŠK˜Y]™[\İ[™\Š˜ÛXÚÈ‹OOØÛÛœİYK\™Ù]˜ÛÜÙ\İ
+‹˜Ú\ŠNÚYŠXŠ\™]\›ÂˆØİ[Y[œ]Y\TÙ[XİÜ[
+‹˜Ú\ŠK™›Ü‘XXÚ
+O˜Û\ÜÓ\İœ™[[İ™J˜Xİ]™HŠJNØ‹˜Û74Æ—7BæFB‚&7F—fR"“°¢7FFRç6–FSÖ"æFF6WBç6–FS·&VæFW$w&–B‚“·Ò“°¢B‚"76÷'B"’æFDWfVçDÆ—7FVæW"‚&6†ævR"ÆSÓç·7FFRç6÷'CÖRçF&vWBçfÇVS·&VæFW$w&–B‚“·Ò“°¢B‚"66ö×FB"’æFDWfVçDÆ—7FVæW"‚&6Æ–6²"Æ7–æ2‚“Óç°¢6öç7Bƒ×'6T†æFÆR‚B‚"66ö×–çWB"’çfÇVR“¶–b‚‚—&WGW&ã°¢6öç7B'FãÒB‚"66ö×FB"“¶'FâæF—6&ÆVC×G'VS¶'FâçFW‡D6öçFVçCÒ.(
+b#°¢v—B•÷7B‚"ö’ö6ö×WF—F÷'2"Ç¶6Æ–VçC§7FFRæ6Æ–VçBÆ†æFÆS¦‡Ò“°¢B‚"66ö×–çWB"’çfÇVSÒ"#¶v—BÆöE7F÷&R‚“·&VæFW"‚“°¢'FâæF—6&ÆVCÖfÇ6S¶'FâçFW‡D6öçFVçCÒ-Š=‹m˜˜]˜mŠ}˜‹2#°§Ò“°¢B‚"646æ6VÂ"’æFDWfVçDÆ—7FVæW"‚&6Æ–6²"Â‚“ÓâB‚"66Æ–VçDFÆr"’æ6Æ÷6R‚’“°¢B‚"656fR"’æFDWfVçDÆ—7FVæW"‚&6Æ–6²"Æ7–æ2‚“Óç°¢6öç7BæÖSÒB‚"64æÖR"’çfÇVRçG&–Ò‚“¶6öç7B†æFÆS×'6T†æFÆR‚B‚"64†æFÆR"’çfÇVR“°¢–b‚æÖWÇÂ†æFÆR—&WGW&ã°¢6öç7B#Öv—B•÷7B‚"ö’ö6Æ–VçG2"Ç¶æÖRÆ†æFÆWÒ“°¢B‚"64æÖR"’çfÇVSÒ"#²B‚"64†æFÆR"’çfÇVSÒ"#²B‚"66Æ–VçDFÆr"’æ6Æ÷6R‚“°¢v—BÆöE7F÷&R‚“¶–b‡"bg"æ–B—7FFRæ6Æ–VçC×"æ–C·&VæFW"‚“°§Ò“° ¦ÆöE7F÷&R‚’çF†Vâ‡&VæFW"“°£Â÷67&—Cà£Âö&öG“à£Âö‡FÖÃà

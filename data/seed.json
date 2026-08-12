@@ -1,0 +1,397 @@
+{
+  "clients": [
+    {
+      "id": "arev",
+      "name": "AREV",
+      "ownedHandle": "arev.iraq",
+      "competitors": [
+        "norma_fitzroy",
+        "osteriarenata",
+        "from.zahle"
+      ],
+      "demo": true
+    },
+    {
+      "id": "fab",
+      "name": "FAB",
+      "ownedHandle": "fab.iraq",
+      "competitors": []
+    }
+  ],
+  "accounts": {
+    "arev.iraq": {
+      "handle": "arev.iraq",
+      "side": "owned",
+      "followers": 41200,
+      "name": "AREV"
+    },
+    "norma_fitzroy": {
+      "handle": "norma_fitzroy",
+      "side": "competitor",
+      "followers": 58900,
+      "name": "Norma"
+    },
+    "osteriarenata": {
+      "handle": "osteriarenata",
+      "side": "competitor",
+      "followers": 33100,
+      "name": "Osteria Renata"
+    },
+    "from.zahle": {
+      "handle": "from.zahle",
+      "side": "competitor",
+      "followers": 76400,
+      "name": "From Zahle"
+    },
+    "fab.iraq": {
+      "handle": "fab.iraq",
+      "side": "owned",
+      "followers": null,
+      "name": "FAB"
+    }
+  },
+  "posts": [
+    {
+      "id": "s1",
+      "client": "arev",
+      "handle": "arev.iraq",
+      "side": "owned",
+      "format": "REEL",
+      "timestamp": "2026-08-08T18:10:00Z",
+      "caption": "لحظة تقطيع الطبق أمام الزبون",
+      "metrics": {
+        "reach": 88400,
+        "views": 121000,
+        "likes": 5400,
+        "comments": 210,
+        "saved": 1980,
+        "shares": 1450,
+        "engagementRate": 8.6
+      }
+    },
+    {
+      "id": "s2",
+      "client": "arev",
+      "handle": "arev.iraq",
+      "side": "owned",
+      "format": "REEL",
+      "timestamp": "2026-08-04T19:00:00Z",
+      "caption": "أجواء الحفل — نادر بمطاعم العراق",
+      "metrics": {
+        "reach": 51200,
+        "views": 69000,
+        "likes": 3100,
+        "comments": 340,
+        "saved": 640,
+        "shares": 520,
+        "engagementRate": 7.9
+      }
+    },
+    {
+      "id": "s3",
+      "client": "arev",
+      "handle": "arev.iraq",
+      "side": "owned",
+      "format": "CAROUSEL",
+      "timestamp": "2026-07-30T17:30:00Z",
+      "caption": "القصة وراء الطبق",
+      "metrics": {
+        "reach": 22800,
+        "views": 0,
+        "likes": 1450,
+        "comments": 96,
+        "saved": 410,
+        "shares": 120,
+        "engagementRate": 8.7
+      }
+    },
+    {
+      "id": "s4",
+      "client": "arev",
+      "handle": "arev.iraq",
+      "side": "owned",
+      "format": "IMAGE",
+      "timestamp": "2026-07-24T13:00:00Z",
+      "caption": "منيو جديد",
+      "metrics": {
+        "reach": 9600,
+        "views": 0,
+        "likes": 520,
+        "comments": 24,
+        "saved": 60,
+        "shares": 18,
+        "engagementRate": 6.4
+      }
+    },
+    {
+      "id": "s5",
+      "client": "arev",
+      "handle": "arev.iraq",
+      "side": "owned",
+      "format": "IMAGE",
+      "timestamp": "2026-07-20T11:00:00Z",
+      "caption": "بوست عادي — أداء ضعيف",
+      "metrics": {
+        "reach": 3100,
+        "views": 0,
+        "likes": 140,
+        "comments": 6,
+        "saved": 9,
+        "shares": 3,
+        "engagementRate": 4.8
+      }
+    },
+    {
+      "id": "c1",
+      "client": "arev",
+      "handle": "from.zahle",
+      "side": "competitor",
+      "format": "REEL",
+      "timestamp": "2026-08-07T20:00:00Z",
+      "caption": "food placement hook",
+      "metrics": {
+        "views": 240000,
+        "likes": 9800,
+        "comments": 430
+      }
+    },
+    {
+      "id": "c2",
+      "client": "arev",
+      "handle": "from.zahle",
+      "side": "competitor",
+      "format": "REEL",
+      "timestamp": "2026-08-02T21:00:00Z",
+      "caption": "chef closeup",
+      "metrics": {
+        "views": 98000,
+        "likes": 4100,
+        "comments": 180
+      }
+    },
+    {
+      "id": "c3",
+      "client": "arev",
+      "handle": "norma_fitzroy",
+      "side": "competitor",
+      "format": "CAROUSEL",
+      "timestamp": "2026-08-05T16:00:00Z",
+      "caption": "plating series",
+      "metrics": {
+        "views": 0,
+        "likes": 6200,
+        "comments": 260
+      }
+    },
+    {
+      "id": "c4",
+      "client": "arev",
+      "handle": "norma_fitzroy",
+      "side": "competitor",
+      "format": "REEL",
+      "timestamp": "2026-07-29T18:30:00Z",
+      "caption": "ambience walkthrough",
+      "metrics": {
+        "views": 143000,
+        "likes": 5100,
+        "comments": 150
+      }
+    },
+    {
+      "id": "c5",
+      "client": "arev",
+      "handle": "osteriarenata",
+      "side": "competitor",
+      "format": "REEL",
+      "timestamp": "2026-08-06T19:30:00Z",
+      "caption": "pasta pull",
+      "metrics": {
+        "views": 72000,
+        "likes": 3300,
+        "comments": 210
+      }
+    },
+    {
+      "id": "c6",
+      "client": "arev",
+      "handle": "osteriarenata",
+      "side": "competitor",
+      "format": "IMAGE",
+      "timestamp": "2026-07-26T12:00:00Z",
+      "caption": "menu shot",
+      "metrics": {
+        "views": 0,
+        "likes": 1400,
+        "comments": 40
+      }
+    },
+    {
+      "id": "f1",
+      "client": "fab",
+      "handle": "fab.iraq",
+      "side": "owned",
+      "format": "REEL",
+      "timestamp": "2026-08-11T15:52:59Z",
+      "permalink": "https://www.instagram.com/reel/Db59DhjIxnj/",
+      "caption": "Dyson Airstrait - تمليس بالهواء",
+      "metrics": {
+        "likes": 15,
+        "comments": 0
+      }
+    },
+    {
+      "id": "f2",
+      "client": "fab",
+      "handle": "fab.iraq",
+      "side": "owned",
+      "format": "REEL",
+      "timestamp": "2026-08-09T16:55:59Z",
+      "permalink": "https://www.instagram.com/reel/Db06pfVI9ej/",
+      "caption": "Dyson Coanda 2X - 6 في 1",
+      "metrics": {
+        "likes": 17,
+        "comments": 3
+      }
+    },
+    {
+      "id": "f3",
+      "client": "fab",
+      "handle": "fab.iraq",
+      "side": "owned",
+      "format": "REEL",
+      "timestamp": "2026-08-06T17:14:10Z",
+      "permalink": "https://www.instagram.com/reel/DbtOXRUoygK/",
+      "caption": "Airwrap i.d. - تصفيف أسرع",
+      "metrics": {
+        "likes": 22,
+        "comments": 0
+      }
+    },
+    {
+      "id": "f4",
+      "client": "fab",
+      "handle": "fab.iraq",
+      "side": "owned",
+      "format": "REEL",
+      "timestamp": "2026-08-04T17:06:10Z",
+      "permalink": "https://www.instagram.com/reel/DboD3-coISQ/",
+      "caption": "Airwrap i.d. - تحكم ذكي",
+      "metrics": {
+        "likes": 20,
+        "comments": 0
+      }
+    },
+    {
+      "id": "f5",
+      "client": "fab",
+      "handle": "fab.iraq",
+      "side": "owned",
+      "format": "REEL",
+      "timestamp": "2026-08-02T17:35:28Z",
+      "permalink": "https://www.instagram.com/reel/Dbi9l3OIEFV/",
+      "caption": "Airstrait - بدون ألواح ساخنة",
+      "metrics": {
+        "likes": 19,
+        "comments": 0
+      }
+    },
+    {
+      "id": "f6",
+      "client": "fab",
+      "handle": "fab.iraq",
+      "side": "owned",
+      "format": "REEL",
+      "timestamp": "2026-07-31T14:28:05Z",
+      "permalink": "https://www.instagram.com/reel/DbdebxFoLIE/",
+      "caption": "Airwrap i.d. - نتائج تدوم",
+      "metrics": {
+        "likes": 19,
+        "comments": 4
+      }
+    },
+    {
+      "id": "f7",
+      "client": "fab",
+      "handle": "fab.iraq",
+      "side": "owned",
+      "format": "REEL",
+      "timestamp": "2026-07-28T15:29:41Z",
+      "permalink": "https://www.instagram.com/reel/DbV27e-osaK/",
+      "caption": "Airwrap Coanda 2X - محرك أقوى",
+      "metrics": {
+        "likes": 28,
+        "comments": 3
+      }
+    },
+    {
+      "id": "f8",
+      "client": "fab",
+      "handle": "fab.iraq",
+      "side": "owned",
+      "format": "REEL",
+      "timestamp": "2026-07-26T14:36:07Z",
+      "permalink": "https://www.instagram.com/reel/DbQndakI-MF/",
+      "caption": "Coanda 2X - تحكم أدق",
+      "metrics": {
+        "likes": 43,
+        "comments": 26
+      }
+    },
+    {
+      "id": "f9",
+      "client": "fab",
+      "handle": "fab.iraq",
+      "side": "owned",
+      "format": "REEL",
+      "timestamp": "2026-07-23T16:26:50Z",
+      "permalink": "https://www.instagram.com/reel/DbJFr9WI8hb/",
+      "caption": "Airstrait - Amber Silk",
+      "metrics": {
+        "likes": 14,
+        "comments": 4
+      }
+    },
+    {
+      "id": "f10",
+      "client": "fab",
+      "handle": "fab.iraq",
+      "side": "owned",
+      "format": "REEL",
+      "timestamp": "2026-07-21T15:58:24Z",
+      "permalink": "https://www.instagram.com/reel/DbD42P-oIrp/",
+      "caption": "سر الويفي - شعر رطب 20%",
+      "metrics": {
+        "likes": 51,
+        "comments": 24
+      }
+    },
+    {
+      "id": "f11",
+      "client": "fab",
+      "handle": "fab.iraq",
+      "side": "owned",
+      "format": "REEL",
+      "timestamp": "2026-07-19T16:55:14Z",
+      "permalink": "https://www.instagram.com/reel/Da-1vZxIW2O/",
+      "caption": "Coanda 2X - لمعان وحجم",
+      "metrics": {
+        "likes": 34,
+        "comments": 0
+      }
+    },
+    {
+      "id": "f12",
+      "client": "fab",
+      "handle": "fab.iraq",
+      "side": "owned",
+      "format": "REEL",
+      "timestamp": "2026-07-16T16:59:04Z",
+      "permalink": "https://www.instagram.com/reel/Da3HOUOogVI/",
+      "caption": "Airstrait - هواء يملّس",
+      "metrics": {
+        "likes": 39,
+        "comments": 2
+      }
+    }
+  ]
+}
