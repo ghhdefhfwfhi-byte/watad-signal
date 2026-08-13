@@ -2,6 +2,7 @@ import express from "express";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import zlib from "zlib";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 3000;
@@ -13,6 +14,11 @@ const SEED = path.join(__dirname, "data", "seed.json");
 
 fs.mkdirSync(DATA_DIR, { recursive: true });
 if (!fs.existsSync(STORE)) fs.copyFileSync(SEED, STORE);
+
+// Restore the (large) frontend from its gzipped copy to dodge transfer corruption.
+const IDX = path.join(__dirname, "public", "index.html");
+const IDXGZ = path.join(__dirname, "public", "index.html.gz");
+if (fs.existsSync(IDXGZ)) fs.writeFileSync(IDX, zlib.gunzipSync(fs.readFileSync(IDXGZ)));
 
 const app = express();
 app.use(express.json({ limit: "8mb" }));
